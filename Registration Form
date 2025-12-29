@@ -1,0 +1,105 @@
+
+App.Jsx
+
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    gender: "",
+    terms: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Registration Data:", formData);
+    alert("Registration Successful!");
+    setFormData({ name: "", email: "", password: "", gender: "", terms: false });
+  };
+
+  return (
+    <div className="container">
+      <form className="form" onSubmit={handleSubmit}>
+        <h2>Registration Form</h2>
+
+        <label>Name:</label>
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Enter your name"
+          required
+        />
+
+        <label>Email:</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Enter your email"
+          required
+        />
+
+        <label>Password:</label>
+        <input
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Enter your password"
+          required
+        />
+
+        <label>Gender:</label>
+        <select name="gender" value={formData.gender} onChange={handleChange} required>
+          <option value="">Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+
+        <label className="checkbox">
+          <input
+            type="checkbox"
+            name="terms"
+            checked={formData.terms}
+            onChange={handleChange}
+            required
+          />
+          I accept the Terms and Conditions
+        </label>
+
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
+}
+
+export default App;
+
+
+Registration Form:
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
