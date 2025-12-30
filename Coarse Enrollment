@@ -1,0 +1,125 @@
+App.jsx
+
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+  const [studentName, setStudentName] = useState("");
+  const [course, setCourse] = useState("");
+  const [enrollments, setEnrollments] = useState([]);
+
+  const handleEnroll = (e) => {
+    e.preventDefault();
+
+    if (studentName === "" || course === "") {
+      alert("Please fill all fields");
+      return;
+    }
+
+    setEnrollments([
+      ...enrollments,
+      { name: studentName, course: course },
+    ]);
+
+    setStudentName("");
+    setCourse("");
+  };
+
+  return (
+    <div className="container">
+      <h2>Course Enrollment Form</h2>
+
+      <form onSubmit={handleEnroll} className="form">
+        <input
+          type="text"
+          placeholder="Student Name"
+          value={studentName}
+          onChange={(e) => setStudentName(e.target.value)}
+        />
+
+        <select value={course} onChange={(e) => setCourse(e.target.value)}>
+          <option value="">Select Course</option>
+          <option value="Web Development">Web Development</option>
+          <option value="Data Science">Data Science</option>
+          <option value="Python Programming">Python Programming</option>
+          <option value="AI & ML">AI & ML</option>
+        </select>
+
+        <button type="submit">Enroll</button>
+      </form>
+
+      <h3>Enrolled Students</h3>
+
+      {enrollments.length === 0 ? (
+        <p>No enrollments yet</p>
+      ) : (
+        <ul className="list">
+          {enrollments.map((item, index) => (
+            <li key={index}>
+              <strong>{item.name}</strong> - {item.course}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export default App;
+
+
+Main func
+
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+
+
+App.css
+
+
+.container {
+  width: 400px;
+  margin: 60px auto;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 10px gray;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.form input,
+.form select {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+}
+
+.form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background-color: #0056b3;
+}
+
+.list {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.list li {
+  background: #f2f2f2;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 5px;
+}
