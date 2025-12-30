@@ -1,0 +1,111 @@
+app.jsx
+
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Products from "./Products";
+
+function App() {
+  const categories = ["All", "Electronics", "Clothing", "Books"];
+
+  return (
+    <Router>
+      <div style={styles.container}>
+        <h1>🛍️ Product Browsing Page</h1>
+
+        <nav style={styles.nav}>
+          {categories.map((cat) => (
+            <Link key={cat} to={`/category/${cat}`} style={styles.link}>
+              {cat}
+            </Link>
+          ))}
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Products category="All" />} />
+          <Route path="/category/:category" element={<Products />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+const styles = {
+  container: {
+    width: "800px",
+    margin: "30px auto",
+    fontFamily: "Arial",
+    textAlign: "center",
+  },
+  nav: {
+    marginBottom: "20px",
+  },
+  link: {
+    padding: "10px 15px",
+    margin: "0 5px",
+    textDecoration: "none",
+    backgroundColor: "#007bff",
+    color: "white",
+    borderRadius: "5px",
+  },
+};
+
+export default App;
+
+
+Main func
+
+import React from "react";
+import { useParams } from "react-router-dom";
+
+const allProducts = [
+  { id: 1, name: "Laptop", category: "Electronics" },
+  { id: 2, name: "Smartphone", category: "Electronics" },
+  { id: 3, name: "T-Shirt", category: "Clothing" },
+  { id: 4, name: "Jeans", category: "Clothing" },
+  { id: 5, name: "Book: React Basics", category: "Books" },
+  { id: 6, name: "Book: JS Advanced", category: "Books" },
+];
+
+function Products({ category }) {
+  const params = useParams();
+  const selectedCategory = params.category || category || "All";
+
+  const filteredProducts =
+    selectedCategory === "All"
+      ? allProducts
+      : allProducts.filter((p) => p.category === selectedCategory);
+
+  return (
+    <div>
+      <h2>{selectedCategory} Products</h2>
+      <div style={styles.productList}>
+        {filteredProducts.length === 0 ? (
+          <p>No products available</p>
+        ) : (
+          filteredProducts.map((p) => (
+            <div key={p.id} style={styles.productCard}>
+              {p.name}
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
+
+const styles = {
+  productList: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  productCard: {
+    border: "1px solid #ccc",
+    padding: "15px",
+    margin: "10px",
+    borderRadius: "8px",
+    width: "150px",
+  },
+};
+
+export default Products;
