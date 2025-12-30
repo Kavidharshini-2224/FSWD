@@ -1,0 +1,83 @@
+app.jsx
+
+import React from "react";
+import "./App.css";
+
+function App() {
+  const bookCab = () => {
+    let name = prompt("Enter Passenger Name:");
+    if (!name) {
+      alert("Name is required!");
+      return;
+    }
+
+    let pickup = prompt("Enter Pickup Location:");
+    let drop = prompt("Enter Drop Location:");
+
+    if (!pickup || !drop) {
+      alert("Pickup and Drop locations are required!");
+      return;
+    }
+
+    let distance = prompt("Enter Distance (in km):");
+    if (!distance || isNaN(distance)) {
+      alert("Please enter valid distance!");
+      return;
+    }
+
+    let fare = distance * 15; // ₹15 per km
+
+    let confirmBooking = confirm(
+      `Confirm Your Ride 🚕\n\nPassenger: ${name}\nFrom: ${pickup}\nTo: ${drop}\nDistance: ${distance} km\nFare: ₹${fare}`
+    );
+
+    if (confirmBooking) {
+      alert(
+        `✅ Booking Confirmed!\n\nPassenger: ${name}\nFrom: ${pickup}\nTo: ${drop}\nTotal Fare: ₹${fare}`
+      );
+    } else {
+      alert("❌ Booking Cancelled");
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2>🚕 Online Cab Booking</h2>
+      <button onClick={bookCab} className="btn">
+        Book Cab
+      </button>
+    </div>
+  );
+}
+
+export default App;
+
+Main func
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+
+App.css
+
+.container {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.btn {
+  padding: 12px 25px;
+  font-size: 16px;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #e68900;
+}
