@@ -1,0 +1,72 @@
+App.jsx
+
+import React from "react";
+
+function App() {
+  const bookTicket = () => {
+    // Prompt user input
+    let name = prompt("Enter Passenger Name:");
+    if (!name) {
+      alert("Name is required!");
+      return;
+    }
+
+    let from = prompt("Enter Source City:");
+    let to = prompt("Enter Destination City:");
+
+    if (!from || !to) {
+      alert("Source and Destination cannot be empty!");
+      return;
+    }
+
+    let confirmBooking = confirm(
+      `Please confirm your booking:\n\nPassenger: ${name}\nFrom: ${from}\nTo: ${to}`
+    );
+
+    if (confirmBooking) {
+      alert(
+        `🎉 Ticket Booked Successfully!\n\nPassenger: ${name}\nFrom: ${from}\nTo: ${to}`
+      );
+    } else {
+      alert("Booking Cancelled");
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>✈️ Flight Ticket Booking</h2>
+      <button style={styles.button} onClick={bookTicket}>
+        Book Ticket
+      </button>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    marginTop: "100px",
+    textAlign: "center",
+  },
+  button: {
+    padding: "12px 20px",
+    fontSize: "16px",
+    cursor: "pointer",
+    backgroundColor: "#007bff",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+  },
+};
+
+export default App;
+
+
+
+Main.jsx
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
