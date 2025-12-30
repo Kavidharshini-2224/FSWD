@@ -1,0 +1,101 @@
+
+App.jsx
+
+
+import React, { useState } from "react";
+
+function App() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    if (username === "" || password === "") {
+      setError("All fields are required");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
+    if (username === "admin" && password === "123456") {
+      alert("Login Successful!");
+      setError("");
+    } else {
+      setError("Invalid Username or Password");
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>Login</h2>
+
+      <form onSubmit={handleLogin}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          style={styles.input}
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={styles.input}
+        />
+
+        <p style={styles.error}>{error}</p>
+
+        <button type="submit" style={styles.button}>
+          Login
+        </button>
+      </form>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    width: "300px",
+    margin: "100px auto",
+    padding: "20px",
+    boxShadow: "0 0 10px gray",
+    borderRadius: "5px",
+    textAlign: "center",
+  },
+  input: {
+    width: "100%",
+    padding: "8px",
+    margin: "8px 0",
+  },
+  button: {
+    width: "100%",
+    padding: "8px",
+    backgroundColor: "#007bff",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+  },
+  error: {
+    color: "red",
+    fontSize: "14px",
+  },
+};
+
+export default App;
+
+Main.fucn
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
