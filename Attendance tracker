@@ -1,0 +1,108 @@
+App.jsx
+
+import React, { useState } from "react";
+
+function App() {
+  const [students, setStudents] = useState([
+    { name: "Arun", status: "Absent" },
+    { name: "Divya", status: "Absent" },
+    { name: "Karthik", status: "Absent" },
+    { name: "Meena", status: "Absent" },
+  ]);
+
+  const markPresent = (index) => {
+    const updated = [...students];
+    updated[index].status = "Present";
+    setStudents(updated);
+  };
+
+  const markAbsent = (index) => {
+    const updated = [...students];
+    updated[index].status = "Absent";
+    setStudents(updated);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>📋 Attendance Tracker</h2>
+
+      <table style={styles.table}>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Mark Attendance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {students.map((student, index) => (
+            <tr key={index}>
+              <td>{student.name}</td>
+              <td
+                style={{
+                  color: student.status === "Present" ? "green" : "red",
+                  fontWeight: "bold",
+                }}
+              >
+                {student.status}
+              </td>
+              <td>
+                <button
+                  style={styles.presentBtn}
+                  onClick={() => markPresent(index)}
+                >
+                  Present
+                </button>
+                <button
+                  style={styles.absentBtn}
+                  onClick={() => markAbsent(index)}
+                >
+                  Absent
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    width: "600px",
+    margin: "50px auto",
+    textAlign: "center",
+    fontFamily: "Arial",
+  },
+  table: {
+    width: "100%",
+    borderCollapse: "collapse",
+  },
+  presentBtn: {
+    backgroundColor: "green",
+    color: "white",
+    border: "none",
+    padding: "5px 10px",
+    marginRight: "5px",
+    cursor: "pointer",
+  },
+  absentBtn: {
+    backgroundColor: "red",
+    color: "white",
+    border: "none",
+    padding: "5px 10px",
+    cursor: "pointer",
+  },
+};
+
+export default App;
+
+Main func:
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
