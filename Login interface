@@ -1,0 +1,106 @@
+App.jsx
+
+import React, { useState } from "react";
+
+function App() {
+  const [username, setUsername] = useState("");
+  const [role, setRole] = useState("");
+  const [page, setPage] = useState("login");
+
+  const handleLogin = () => {
+    if (!username || !role) {
+      alert("Please enter username and select role");
+      return;
+    }
+    setPage(role);
+  };
+
+  if (page === "admin") {
+    return <Dashboard title="Admin Dashboard" />;
+  }
+  if (page === "user") {
+    return <Dashboard title="User Dashboard" />;
+  }
+  if (page === "guest") {
+    return <Dashboard title="Guest Dashboard" />;
+  }
+
+  return (
+    <div style={styles.container}>
+      <h2>Login</h2>
+
+      <input
+        type="text"
+        placeholder="Enter Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        style={styles.input}
+      />
+
+      <select
+        value={role}
+        onChange={(e) => setRole(e.target.value)}
+        style={styles.input}
+      >
+        <option value="">Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+        <option value="guest">Guest</option>
+      </select>
+
+      <button onClick={handleLogin} style={styles.button}>
+        Login
+      </button>
+    </div>
+  );
+}
+
+function Dashboard({ title }) {
+  return (
+    <div style={styles.dashboard}>
+      <h2>{title}</h2>
+      <p>Welcome! You have successfully logged in.</p>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    width: "350px",
+    margin: "100px auto",
+    textAlign: "center",
+    padding: "20px",
+    boxShadow: "0 0 10px gray",
+    borderRadius: "10px",
+  },
+  input: {
+    width: "100%",
+    padding: "8px",
+    margin: "10px 0",
+  },
+  button: {
+    padding: "10px",
+    width: "100%",
+    backgroundColor: "#007bff",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+  },
+  dashboard: {
+    marginTop: "100px",
+    textAlign: "center",
+  },
+};
+
+export default App;
+
+
+
+Main func
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
