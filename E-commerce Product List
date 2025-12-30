@@ -1,0 +1,126 @@
+App.jsx
+
+import React, { useState } from "react";
+
+function App() {
+  const products = [
+    { id: 1, name: "Laptop", price: 50000 },
+    { id: 2, name: "Smartphone", price: 20000 },
+    { id: 3, name: "Headphones", price: 2000 },
+    { id: 4, name: "Smartwatch", price: 5000 },
+  ];
+
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
+
+  const removeFromCart = (index) => {
+    const updatedCart = cart.filter((_, i) => i !== index);
+    setCart(updatedCart);
+  };
+
+  const totalPrice = cart.reduce((acc, item) => acc + item.price, 0);
+
+  return (
+    <div style={styles.container}>
+      <h2>🛍️ Product Listing</h2>
+
+      <div style={styles.productList}>
+        {products.map((product) => (
+          <div key={product.id} style={styles.productCard}>
+            <h3>{product.name}</h3>
+            <p>Price: ₹{product.price}</p>
+            <button onClick={() => addToCart(product)} style={styles.button}>
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <div style={styles.cart}>
+        <h3>🛒 Cart</h3>
+        {cart.length === 0 ? (
+          <p>Cart is empty</p>
+        ) : (
+          <>
+            {cart.map((item, index) => (
+              <div key={index} style={styles.cartItem}>
+                {item.name} - ₹{item.price}
+                <button
+                  onClick={() => removeFromCart(index)}
+                  style={styles.removeBtn}
+                >
+                  ❌
+                </button>
+              </div>
+            ))}
+            <p><b>Total: ₹{totalPrice}</b></p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    maxWidth: "800px",
+    margin: "40px auto",
+    fontFamily: "Arial",
+    textAlign: "center",
+  },
+  productList: {
+    display: "flex",
+    justifyContent: "space-around",
+    flexWrap: "wrap",
+    marginBottom: "30px",
+  },
+  productCard: {
+    border: "1px solid #ccc",
+    padding: "15px",
+    width: "180px",
+    margin: "10px",
+    borderRadius: "8px",
+  },
+  button: {
+    padding: "8px 12px",
+    backgroundColor: "#007bff",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+  },
+  cart: {
+    borderTop: "1px solid #ccc",
+    paddingTop: "20px",
+  },
+  cartItem: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "8px",
+    alignItems: "center",
+    background: "#f2f2f2",
+    padding: "5px 10px",
+    borderRadius: "5px",
+  },
+  removeBtn: {
+    padding: "3px 7px",
+    backgroundColor: "#dc3545",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+  },
+};
+
+export default App;
+
+
+Main Func
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
