@@ -1,0 +1,51 @@
+app.jsx
+
+import React, { useState } from "react";
+
+function App() {
+  const [name, setName] = useState("");
+  const [rating, setRating] = useState("");
+  const [comment, setComment] = useState("");
+  const [feedbacks, setFeedbacks] = useState([]);
+
+  const handleSubmit = () => {
+    if (!name || !rating || !comment) {
+      alert("Please fill all fields!");
+      return;
+    }
+
+    const newFeedback = {
+      name,
+      rating,
+      comment,
+    };
+
+    setFeedbacks([...feedbacks, newFeedback]);
+    setName("");
+    setRating("");
+    setComment("");
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>Student Feedback Form</h2>
+
+      <input
+        type="text"
+        placeholder="Student Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        style={styles.input}
+      />
+
+      <select
+        value={rating}
+
+Main.func
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
