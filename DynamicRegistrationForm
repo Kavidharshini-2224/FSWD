@@ -1,0 +1,97 @@
+App.jsx
+
+import React, { useState } from "react";
+
+function App() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    workshop: "",
+    mode: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>🎓 Workshop Registration</h2>
+
+      <div style={styles.form}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Full Name"
+          value={form.name}
+          onChange={handleChange}
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email Address"
+          value={form.email}
+          onChange={handleChange}
+        />
+
+        <select name="workshop" onChange={handleChange} value={form.workshop}>
+          <option value="">Select Workshop</option>
+          <option value="Web Development">Web Development</option>
+          <option value="AI & ML">AI & ML</option>
+          <option value="Data Science">Data Science</option>
+          <option value="Cyber Security">Cyber Security</option>
+        </select>
+
+        <select name="mode" onChange={handleChange} value={form.mode}>
+          <option value="">Mode of Learning</option>
+          <option value="Online">Online</option>
+          <option value="Offline">Offline</option>
+        </select>
+      </div>
+
+      <div style={styles.preview}>
+        <h3>Live Preview</h3>
+        <p><b>Name:</b> {form.name || "—"}</p>
+        <p><b>Email:</b> {form.email || "—"}</p>
+        <p><b>Workshop:</b> {form.workshop || "—"}</p>
+        <p><b>Mode:</b> {form.mode || "—"}</p>
+      </div>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    width: "400px",
+    margin: "60px auto",
+    padding: "20px",
+    boxShadow: "0 0 10px gray",
+    borderRadius: "10px",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+  },
+  preview: {
+    marginTop: "20px",
+    padding: "15px",
+    backgroundColor: "#f2f2f2",
+    borderRadius: "8px",
+  },
+};
+
+export default App;
+
+
+
+
+Main.jsx
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
