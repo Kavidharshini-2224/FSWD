@@ -1,0 +1,109 @@
+app.jsx
+
+import React, { useState } from "react";
+
+function App() {
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = () => {
+    if (task.trim() === "") return;
+    setTasks([...tasks, task]);
+    setTask("");
+  };
+
+  const removeTask = (index) => {
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>📝 Task List</h2>
+
+      <div style={styles.inputBox}>
+        <input
+          type="text"
+          placeholder="Enter a task"
+          value={task}
+          onChange={(e) => setTask(e.target.value)}
+          style={styles.input}
+        />
+        <button onClick={addTask} style={styles.addBtn}>
+          Add
+        </button>
+      </div>
+
+      <ul style={styles.list}>
+        {tasks.map((item, index) => (
+          <li key={index} style={styles.listItem}>
+            {item}
+            <button
+              style={styles.deleteBtn}
+              onClick={() => removeTask(index)}
+            >
+              ❌
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    width: "350px",
+    margin: "80px auto",
+    padding: "20px",
+    textAlign: "center",
+    boxShadow: "0 0 10px gray",
+    borderRadius: "10px",
+  },
+  inputBox: {
+    display: "flex",
+    gap: "10px",
+  },
+  input: {
+    flex: 1,
+    padding: "8px",
+  },
+  addBtn: {
+    padding: "8px 15px",
+    backgroundColor: "#007bff",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+  },
+  list: {
+    marginTop: "20px",
+    listStyle: "none",
+    padding: 0,
+  },
+  listItem: {
+    background: "#f2f2f2",
+    padding: "10px",
+    marginBottom: "8px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  deleteBtn: {
+    background: "red",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+    padding: "5px 8px",
+  },
+};
+
+export default App;
+
+Main.jsx:
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
