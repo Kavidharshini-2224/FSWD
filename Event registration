@@ -1,0 +1,74 @@
+App.jsx
+
+import React from "react";
+
+function App() {
+  const registerEvent = () => {
+    let name = prompt("Enter your name:");
+    if (!name) {
+      alert("Name is required!");
+      return;
+    }
+
+    let eventName = prompt("Enter Event Name:");
+    if (!eventName) {
+      alert("Event name is required!");
+      return;
+    }
+
+    let email = prompt("Enter your Email ID:");
+    if (!email) {
+      alert("Email is required!");
+      return;
+    }
+
+    let confirmRegister = confirm(
+      `Please confirm your registration:\n\nName: ${name}\nEvent: ${eventName}\nEmail: ${email}`
+    );
+
+    if (confirmRegister) {
+      alert(
+        `✅ Registration Successful!\n\nThank you ${name} for registering for ${eventName}.`
+      );
+    } else {
+      alert("❌ Registration Cancelled");
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>🎉 Event Registration</h2>
+      <button style={styles.button} onClick={registerEvent}>
+        Register Now
+      </button>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    marginTop: "100px",
+    textAlign: "center",
+  },
+  button: {
+    padding: "12px 25px",
+    fontSize: "16px",
+    backgroundColor: "#4CAF50",
+    color: "white",
+    border: "none",
+    borderRadius: "6px",
+    cursor: "pointer",
+  },
+};
+
+export default App;
+
+Main func
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+
