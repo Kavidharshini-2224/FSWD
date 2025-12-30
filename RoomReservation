@@ -1,0 +1,84 @@
+App.jsx
+
+import React from "react";
+
+function App() {
+  const bookRoom = () => {
+    let name = prompt("Enter Guest Name:");
+    if (!name) {
+      alert("Name is required!");
+      return;
+    }
+
+    let roomType = prompt("Enter Room Type (Single / Double / Deluxe):");
+    if (!roomType) {
+      alert("Room type is required!");
+      return;
+    }
+
+    let days = prompt("Enter Number of Days:");
+    if (!days || isNaN(days)) {
+      alert("Please enter valid number of days!");
+      return;
+    }
+
+    let pricePerDay = 0;
+    if (roomType.toLowerCase() === "single") pricePerDay = 1000;
+    else if (roomType.toLowerCase() === "double") pricePerDay = 2000;
+    else if (roomType.toLowerCase() === "deluxe") pricePerDay = 3000;
+    else {
+      alert("Invalid room type!");
+      return;
+    }
+
+    let totalAmount = pricePerDay * parseInt(days);
+
+    let confirmBooking = confirm(
+      `Confirm Booking?\n\nGuest: ${name}\nRoom: ${roomType}\nDays: ${days}\nTotal Amount: ₹${totalAmount}`
+    );
+
+    if (confirmBooking) {
+      alert(
+        `✅ Booking Confirmed!\n\nGuest: ${name}\nRoom: ${roomType}\nDays: ${days}\nTotal Bill: ₹${totalAmount}`
+      );
+    } else {
+      alert("Booking Cancelled");
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>🏨 Hotel Reservation System</h2>
+      <button style={styles.button} onClick={bookRoom}>
+        Book Room
+      </button>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    marginTop: "100px",
+    textAlign: "center",
+  },
+  button: {
+    padding: "12px 20px",
+    fontSize: "16px",
+    backgroundColor: "#28a745",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+    borderRadius: "5px",
+  },
+};
+
+export default App;
+
+Main jsx
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
