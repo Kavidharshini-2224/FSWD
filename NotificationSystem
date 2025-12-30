@@ -1,0 +1,96 @@
+app.jsx
+
+import React, { useState } from "react";
+
+function App() {
+  const [notifications, setNotifications] = useState([]);
+
+  const addNotification = () => {
+    const messages = [
+      "New user registered!",
+      "Server backup completed.",
+      "New message received.",
+      "System update available.",
+      "Payment received successfully."
+    ];
+
+    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+
+    setNotifications([
+      ...notifications,
+      { id: Date.now(), text: randomMsg }
+    ]);
+  };
+
+  const clearNotifications = () => {
+    setNotifications([]);
+  };
+
+  return (
+    <div style={styles.container}>
+      <h2>📢 Dashboard Notifications</h2>
+
+      <button style={styles.btn} onClick={addNotification}>
+        Add Notification
+      </button>
+
+      <button style={{ ...styles.btn, backgroundColor: "#dc3545" }} onClick={clearNotifications}>
+        Clear All
+      </button>
+
+      <div style={styles.notificationBox}>
+        {notifications.length === 0 ? (
+          <p>No new notifications</p>
+        ) : (
+          notifications.map((note) => (
+            <div key={note.id} style={styles.notification}>
+              🔔 {note.text}
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    width: "400px",
+    margin: "50px auto",
+    textAlign: "center",
+    padding: "20px",
+    boxShadow: "0 0 10px gray",
+    borderRadius: "10px",
+  },
+  btn: {
+    padding: "10px",
+    margin: "5px",
+    width: "45%",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    border: "none",
+    cursor: "pointer",
+  },
+  notificationBox: {
+    marginTop: "20px",
+    textAlign: "left",
+  },
+  notification: {
+    background: "#f1f1f1",
+    padding: "10px",
+    marginBottom: "8px",
+    borderRadius: "5px",
+  },
+};
+
+export default App;
+
+
+Main.func
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
