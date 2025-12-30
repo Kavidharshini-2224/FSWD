@@ -1,0 +1,85 @@
+App.jsx
+
+import React, { useState } from "react";
+
+function App() {
+  const [votes, setVotes] = useState({
+    OptionA: 0,
+    OptionB: 0,
+    OptionC: 0,
+  });
+
+  const [hasVoted, setHasVoted] = useState(false);
+
+  const handleVote = (option) => {
+    if (!hasVoted) {
+      setVotes((prev) => ({
+        ...prev,
+        [option]: prev[option] + 1,
+      }));
+      setHasVoted(true);
+    }
+  };
+
+  const totalVotes = votes.OptionA + votes.OptionB + votes.OptionC;
+
+  return (
+    <div style={styles.container}>
+      <h2>📊 Classroom Live Poll</h2>
+      <h3>Which topic do you like most?</h3>
+
+      <button style={styles.btn} onClick={() => handleVote("OptionA")}>
+        React
+      </button>
+      <button style={styles.btn} onClick={() => handleVote("OptionB")}>
+        Python
+      </button>
+      <button style={styles.btn} onClick={() => handleVote("OptionC")}>
+        Java
+      </button>
+
+      <hr />
+
+      <h3>Live Results</h3>
+      <p>React: {votes.OptionA} votes</p>
+      <p>Python: {votes.OptionB} votes</p>
+      <p>Java: {votes.OptionC} votes</p>
+
+      <p><b>Total Votes:</b> {totalVotes}</p>
+
+      {hasVoted && <p style={{ color: "green" }}>Thank you for voting!</p>}
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    width: "400px",
+    margin: "80px auto",
+    padding: "20px",
+    textAlign: "center",
+    boxShadow: "0 0 10px gray",
+    borderRadius: "10px",
+  },
+  btn: {
+    width: "100%",
+    padding: "10px",
+    margin: "6px 0",
+    backgroundColor: "#007bff",
+    color: "white",
+    border: "none",
+    cursor: "pointer",
+  },
+};
+
+export default App;
+
+
+Main.func
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
