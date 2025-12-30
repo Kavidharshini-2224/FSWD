@@ -1,0 +1,128 @@
+App jsx
+
+import React, { useState } from "react";
+
+function App() {
+  const [page, setPage] = useState("home");
+
+  const studentList = [
+    { id: 1, name: "Alice", course: "B.Tech" },
+    { id: 2, name: "Bob", course: "MBA" },
+    { id: 3, name: "Charlie", course: "B.Sc" },
+    { id: 4, name: "Diana", course: "B.Com" },
+  ];
+
+  const renderPage = () => {
+    switch (page) {
+      case "home":
+        return (
+          <div>
+            <h2>🏠 Dashboard Home</h2>
+            <p>Welcome to the Student Dashboard!</p>
+          </div>
+        );
+      case "students":
+        return (
+          <div>
+            <h2>👩‍🎓 Students</h2>
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Course</th>
+                </tr>
+              </thead>
+              <tbody>
+                {studentList.map((s) => (
+                  <tr key={s.id}>
+                    <td>{s.id}</td>
+                    <td>{s.name}</td>
+                    <td>{s.course}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      case "about":
+        return (
+          <div>
+            <h2>ℹ️ About</h2>
+            <p>This dashboard helps manage and view student information efficiently.</p>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div style={styles.container}>
+      <h1>🎓 Student Dashboard</h1>
+
+      <nav style={styles.nav}>
+        <button onClick={() => setPage("home")} style={styles.navBtn}>
+          Home
+        </button>
+        <button onClick={() => setPage("students")} style={styles.navBtn}>
+          Students
+        </button>
+        <button onClick={() => setPage("about")} style={styles.navBtn}>
+          About
+        </button>
+      </nav>
+
+      <div style={styles.content}>{renderPage()}</div>
+    </div>
+  );
+}
+
+const styles = {
+  container: {
+    maxWidth: "800px",
+    margin: "30px auto",
+    fontFamily: "Arial",
+    textAlign: "center",
+  },
+  nav: {
+    marginBottom: "20px",
+  },
+  navBtn: {
+    padding: "10px 20px",
+    margin: "0 5px",
+    cursor: "pointer",
+    border: "1px solid #007bff",
+    backgroundColor: "#007bff",
+    color: "white",
+    borderRadius: "5px",
+  },
+  content: {
+    textAlign: "left",
+  },
+  table: {
+    width: "100%",
+    borderCollapse: "collapse",
+  },
+  th: {
+    border: "1px solid #ccc",
+    padding: "8px",
+    background: "#f2f2f2",
+  },
+  td: {
+    border: "1px solid #ccc",
+    padding: "8px",
+  },
+};
+
+export default App;
+
+
+Main func
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
